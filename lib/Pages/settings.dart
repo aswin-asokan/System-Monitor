@@ -86,6 +86,7 @@ class _SettingsState extends State<Settings> {
                     )
                   ],
                 ),
+                //Removable if editing is not required
                 Row(
                   children: [
                     IconButton(
@@ -108,6 +109,7 @@ class _SettingsState extends State<Settings> {
                     ),
                   ],
                 ),
+
                 Column(
                   children: [
                     TextField(
@@ -153,7 +155,8 @@ class _SettingsState extends State<Settings> {
                           )),
                     ),
                   ],
-                ),
+                ), //Remove until here
+
                 SizedBox(
                   height: 15,
                 ),
@@ -183,23 +186,16 @@ class _SettingsState extends State<Settings> {
     );
   }
 
-  Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
-    return directory.path;
-  }
-
-  Future<File> get _localFile async {
-    final directory = await getApplicationDocumentsDirectory();
-    final file = File('${directory.path}/assets/link.txt');
-    return file;
-  }
-
+  //Functions
+  //Write data to link file
   Future<void> writeData(String data) async {
-    final directory = await getApplicationDocumentsDirectory();
-    final file = File('${directory.path}/assets/link.txt');
-    await file.writeAsString(data);
+    final directory =
+        await getApplicationDocumentsDirectory(); //get directory path
+    final file = File('${directory.path}/assets/link.txt'); //set file path
+    await file.writeAsString(data); //write to file
   }
 
+  //launch github page used for documentation inside app
   _launchURL() async {
     final Uri url = Uri.parse('https://aswin-asokan.github.io/System-Monitor/');
     if (!await launchUrl(url)) {
@@ -208,7 +204,9 @@ class _SettingsState extends State<Settings> {
   }
 }
 
+//toast generator
 void toast(BuildContext context, String text) {
+  //text represent toast message
   toastification.show(
     style: ToastificationStyle.flatColored,
     primaryColor: colorCPU,

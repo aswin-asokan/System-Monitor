@@ -24,15 +24,16 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    readLink();
-    fetchData();
-    Timer.periodic(const Duration(seconds: 5), (Timer t) => fetchData());
+    readLink(); //read from file
+    fetchData(); //fetch data from link
+    Timer.periodic(const Duration(seconds: 5),
+        (Timer t) => fetchData()); //fetch data every five seconds
   }
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width; //get device width
+    double height = MediaQuery.of(context).size.height; //get device height
     return Scaffold(
       backgroundColor: colorBack,
       body: SafeArea(
@@ -55,7 +56,8 @@ class _HomeState extends State<Home> {
                     ),
                     IconButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, '/settings');
+                          Navigator.pushNamed(
+                              context, '/settings'); //push to settings page
                         },
                         icon: const Icon(
                           Icons.settings,
@@ -66,9 +68,12 @@ class _HomeState extends State<Home> {
                 const SizedBox(height: 20),
                 Row(
                   children: [
+                    //pichart for cpu usage
                     containG("CPU", "$cpuUsage%", cpuUsage, 100, colorCPU,
                         colorBack, width),
                     const SizedBox(width: 25),
+
+                    //pie chart for memory usage
                     containG(
                       "Memory",
                       "${memoryUsedGB.toStringAsFixed(2)}/${memoryTotGB.toStringAsFixed(2)}GB",
@@ -81,12 +86,18 @@ class _HomeState extends State<Home> {
                   ],
                 ),
                 const SizedBox(height: 25),
+
+                //linear chart for disk usage
                 containL(width, diskUsage,
                     "${diskUseGB.toStringAsFixed(2)}/${diskTotGB.toStringAsFixed(2)}GB"),
                 const SizedBox(height: 25),
+
+                //graph for cpu
                 containC(width, height, "CPU Usage", cpuUsage.toString(), usage,
                     cpuData),
                 const SizedBox(height: 25),
+
+                //graph for memory
                 containC(
                     width,
                     height,
@@ -95,6 +106,8 @@ class _HomeState extends State<Home> {
                     memoryFree.toString(),
                     memData),
                 const SizedBox(height: 25),
+
+                //graph for disk
                 containC(
                     width,
                     height,
@@ -116,20 +129,25 @@ class _HomeState extends State<Home> {
     try {
       final directory = await getApplicationDocumentsDirectory();
       final filePath = '${directory.path}/assets/link.txt';
-      final file = File(filePath);
+      final file = File(filePath); //get link from linkt.txt
 
       if (await file.exists()) {
         // If the file exists, read the contents
         final contents = await file.readAsString();
         setState(() {
-          url = contents.trim();
+          url = contents.trim(); //set the url value to link from file
         });
       } else {
+        //if file does not exist load default file value
         final link = await rootBundle.loadString('assets/link.txt');
+
+        //create a new file for editing through textfield later
         await file.create(recursive: true);
+
+        //write the initial link to the newly created file
         await file.writeAsString(link.trim());
         setState(() {
-          url = link.trim();
+          url = link.trim(); //set the url value to link from file
         });
       }
       fetchData();
@@ -139,24 +157,29 @@ class _HomeState extends State<Home> {
   }
 
   Future<void> fetchData() async {
+    //get response from the url from file
     final response = await http.get(Uri.parse(url));
-
+    //2xx (Success) means the request was successfully received, understood, and accepted.
+    //If success
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
         cpuUsage = data['cpu_usage_percentage'];
         memoryTotal = data['memory_usage']['total_mb'].toDouble();
         memoryUsed = data['memory_usage']['used_mb'].toDouble();
-        memoryTotGB = memoryTotal / 1024;
-        memoryUsedGB = memoryUsed / 1024;
-        memUsage = (memoryUsed / memoryTotal) * 100;
-        memoryFree = memoryTotal - memoryUsed;
+        memoryTotGB = memoryTotal / 1024; //conversion to GB
+        memoryUsedGB = memoryUsed / 1024; //conversion to GB
+        memUsage = (memoryUsed / memoryTotal) * 100; //percentage calculation
+        memoryFree = memoryTotal - memoryUsed; //free space calculation
         diskTotal = data['disk_usage']['total_mb'].toDouble();
         diskUsed = data['disk_usage']['used_mb'].toDouble();
-        diskFree = (data['disk_usage']['free_mb'].toDouble()) / 1024;
-        diskUsage = (diskUsed / diskTotal) * 100;
-        diskTotGB = diskTotal / 1024;
-        diskUseGB = diskUsed / 1024;
+        diskFree = (data['disk_usage']['free_mb'].toDouble()) /
+            1024; //conversion to GB
+        diskUsage = (diskUsed / diskTotal) * 100; //percentage calculation
+        diskTotGB = diskTotal / 1024; //conversion to GB
+        diskUseGB = diskUsed / 1024; //conversion to GB
+
+        //usage warning text
         if (cpuUsage <= 30) {
           usage = "Low";
         } else if (cpuUsage > 30 && cpuUsage <= 70) {
@@ -164,12 +187,23 @@ class _HomeState extends State<Home> {
         } else {
           usage = "High";
         }
+
+        //time incrementer for graph
         time += 1;
+
+        //adding the values from link every 5 seconds to list to be used in graph as values
+        //cpu values list
         cpuData.add(FlSpot(time.toDouble(), cpuUsage));
+
+        //memory values list
         memData.add(
             FlSpot(time.toDouble(), double.parse(memUsage.toStringAsFixed(2))));
+
+        //disk values list
         diskData.add(FlSpot(
             time.toDouble(), double.parse(diskUsage.toStringAsFixed(2))));
+
+        //remove values at a threshold in FCFS manner for ease of use
         if (cpuData.length > 10) {
           cpuData.removeAt(0);
         }

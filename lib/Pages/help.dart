@@ -16,7 +16,8 @@ class _HelpState extends State<Help> {
     super.initState();
     controller = WebViewController()
       ..loadRequest(
-        Uri.parse('https://aswin-asokan.github.io/System-Monitor/'),
+        Uri.parse(
+            'https://aswin-asokan.github.io/System-Monitor/'), //get the help page hosted as github page at initial state for webview loading
       );
   }
 
@@ -25,7 +26,7 @@ class _HelpState extends State<Help> {
     return Scaffold(
       body: SafeArea(
         child: WebViewWidget(
-          controller: controller,
+          controller: controller, //load the github page storead as Readme.md
         ),
       ),
     );

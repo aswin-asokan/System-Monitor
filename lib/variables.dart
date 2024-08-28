@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 
+//Variables required for app functioning
 double cpuUsage = 0.0;
 double memoryTotal = 0.0;
 double memoryUsed = 0.0;
