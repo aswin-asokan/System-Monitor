@@ -1,4 +1,13 @@
 # System Monitor
+
+## Table of Contents
+- [About the App](#about-the-app)
+- [App features](#app-features)
+- [Help](#help)
+  - [For Users](#for-users)
+  - [For Developers](#for-developers)
+- [Screenshots](#screenshots)
+  
 ## About the App
 System Monitor app is a minimalistic app build using flutter which helps you monitor your system status hosted on a server (in JSON format) from anywhere you want.
 
