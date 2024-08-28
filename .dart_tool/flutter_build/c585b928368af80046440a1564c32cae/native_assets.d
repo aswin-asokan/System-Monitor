@@ -1,0 +1,1 @@
+ /home/aswin/Documents/GitHub/System-Monitor/.dart_tool/flutter_build/c585b928368af80046440a1564c32cae/native_assets.yaml: 
