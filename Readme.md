@@ -12,7 +12,7 @@ System Monitor app is a minimalistic app build using flutter which helps you mon
 
 ## Help
 ### For Users
-* Download the app from [Releases]()
+* Download the app from [Releases](https://github.com/aswin-asokan/System-Monitor/releases/tag/v1.0.0)
 * Click on Settings icon:
   
   <img src="https://github.com/user-attachments/assets/ebbd8e5d-4795-4b23-b1dc-292f18f7fef9" alt="step1: click on settings" height="500"/>
@@ -24,6 +24,43 @@ System Monitor app is a minimalistic app build using flutter which helps you mon
 * Restart the app and you are good to go.
 
 ### For Developers
+* Setup your system monitoring real time data and host it. Make sure that it is in JSON format as follows:
+
+```json
+{
+  "cpu_usage_percentage": -> CPU utilization percentage
+  "memory_usage": { 
+    "total_mb": -> Total RAM capacity
+    "used_mb": -> Currently used RAM
+    "free_mb": -> Free RAM available
+  },
+  "disk_usage": {
+    "total_mb": -> Total capacity of HDD storage
+    "used_mb": -> Currently used storage
+    "free_mb": -> Free available storage
+  }
+}
+```
+<details><summary>Example API Response:</summary>
+
+```json
+{
+  "cpu_usage_percentage": 25.6,
+  "memory_usage": {
+    "total_mb": 1963,
+    "used_mb": 1153,
+    "free_mb": 88
+  },
+  "disk_usage": {
+    "total_mb": 39511,
+    "used_mb": 21401,
+    "free_mb": 18110
+  }
+}
+```
+</details>
+
+* Make sure to copy your source link
 * Clone/Fork the repository to your system.
 * Go to your assets folder.
 
@@ -33,12 +70,97 @@ System Monitor app is a minimalistic app build using flutter which helps you mon
 
   <img src="https://github.com/user-attachments/assets/f2b89597-5af6-4548-aab5-1ef913fe4162" alt="file" height="500"/>
   
-* Change 'Your-Link-Here' to the required Source Link
+* Change 'Your-Link-Here' to the required Source Link.
 
   <img src="https://github.com/user-attachments/assets/c3da4fe9-9cfc-4496-899f-419cd2146a67" alt="link.txt" height="500"/>
 
 * This link will serve as the initial data to be fetched to the app (The app won't allow users to view or copy this link. Make sure to edit Settings.dart for making the link not editable if needed.)
-* Run/Build your application
+
+  To remove the editing option go to lib -> pages -> settings.dart. Find and remove the code snippets given below:
+<details><summary>Textfield and Elevated Button</summary>
+  
+```dart
+Column(
+        children: [
+          TextField(
+            style: GoogleFonts.poppins(
+              color: Colors.white,
+              fontSize: width * 0.04,
+            ),
+            controller: controller,
+            obscureText: true,
+            decoration: InputDecoration(
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                    color: colorCPU), // Color when not focused
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide:
+                    BorderSide(color: colorCPU), // Color when focused
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Container(
+            height: width * 0.08,
+            width: double.infinity,
+            child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all(colorCPU),
+                ),
+                onPressed: () async {
+                  String link = controller.text.toString();
+                  await writeData(link);
+                  toast(context,
+                      "Restart the application for changes to take place.");
+                },
+                child: Text(
+                  "Save",
+                  style: GoogleFonts.poppins(
+                      color: Colors.black,
+                      fontSize: width * 0.05,
+                      fontWeight: FontWeight.w600),
+                )),
+          ),
+        ],
+      )
+```
+  
+</details>
+
+<details><summary>Functions</summary>
+
+  ```dart
+Future<String> get _localPath async {
+    final directory = await getApplicationDocumentsDirectory();
+    return directory.path;
+  }
+
+  Future<File> get _localFile async {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/assets/link.txt');
+    return file;
+  }
+
+  Future<void> writeData(String data) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/assets/link.txt');
+    await file.writeAsString(data);
+  }
+
+  _launchURL() async {
+    final Uri url = Uri.parse('https://aswin-asokan.github.io/System-Monitor/');
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+```
+
+</details>
+
+* Run/Build your application.
 
 ## Screenshots
 
