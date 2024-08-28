@@ -41,7 +41,8 @@ System Monitor app is a minimalistic app build using flutter which helps you mon
   }
 }
 ```
-<details><summary>Example API Response:</summary>
+
+Example API Response:
 
 ```json
 {
@@ -58,26 +59,24 @@ System Monitor app is a minimalistic app build using flutter which helps you mon
   }
 }
 ```
-</details>
 
 * Make sure to copy your source link
 * Clone/Fork the repository to your system.
 * Go to your assets folder.
 
-  <img src="https://github.com/user-attachments/assets/5d60babf-9674-4aaa-b209-472176857d52" alt="folder" height="500"/>
+  <img src="https://github.com/user-attachments/assets/5d60babf-9674-4aaa-b209-472176857d52" alt="folder" />
   
 * Open the link.txt file.
 
-  <img src="https://github.com/user-attachments/assets/f2b89597-5af6-4548-aab5-1ef913fe4162" alt="file" height="500"/>
+  <img src="https://github.com/user-attachments/assets/f2b89597-5af6-4548-aab5-1ef913fe4162" alt="file"/>
   
 * Change 'Your-Link-Here' to the required Source Link.
 
-  <img src="https://github.com/user-attachments/assets/c3da4fe9-9cfc-4496-899f-419cd2146a67" alt="link.txt" height="500"/>
+  <img src="https://github.com/user-attachments/assets/c3da4fe9-9cfc-4496-899f-419cd2146a67" alt="link.txt"/>
 
 * This link will serve as the initial data to be fetched to the app (The app won't allow users to view or copy this link. Make sure to edit Settings.dart for making the link not editable if needed.)
 
   To remove the editing option go to lib -> pages -> settings.dart. Find and remove the code snippets given below:
-<details><summary>Textfield and Elevated Button</summary>
   
 ```dart
 Column(
@@ -127,10 +126,6 @@ Column(
         ],
       )
 ```
-  
-</details>
-
-<details><summary>Functions</summary>
 
   ```dart
 Future<String> get _localPath async {
@@ -157,8 +152,6 @@ Future<String> get _localPath async {
     }
   }
 ```
-
-</details>
 
 * Run/Build your application.
 
