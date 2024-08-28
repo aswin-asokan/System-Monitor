@@ -88,52 +88,75 @@ Example API Response:
   To remove the editing option go to lib -> pages -> settings.dart. Find and remove the code snippets given below:
   
 ```dart
-Column(
-        children: [
-          TextField(
-            style: GoogleFonts.poppins(
-              color: Colors.white,
-              fontSize: width * 0.04,
-            ),
-            controller: controller,
-            obscureText: true,
-            decoration: InputDecoration(
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                    color: colorCPU), // Color when not focused
-              ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide:
-                    BorderSide(color: colorCPU), // Color when focused
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          Container(
-            height: width * 0.08,
-            width: double.infinity,
-            child: ElevatedButton(
-                style: ButtonStyle(
-                  backgroundColor: WidgetStateProperty.all(colorCPU),
+Row(
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          toast(context,
+                              "'Enter the link where your system monitoring data is stored in the given text field'");
+                        },
+                        icon: Icon(
+                          Symbols.help_outline,
+                          color: Colors.white,
+                          size: width * 0.04,
+                        )),
+                    Text(
+                      "Change Link:",
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: width * 0.04,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ],
                 ),
-                onPressed: () async {
-                  String link = controller.text.toString();
-                  await writeData(link);
-                  toast(context,
-                      "Restart the application for changes to take place.");
-                },
-                child: Text(
-                  "Save",
-                  style: GoogleFonts.poppins(
-                      color: Colors.black,
-                      fontSize: width * 0.05,
-                      fontWeight: FontWeight.w600),
-                )),
-          ),
-        ],
-      )
+                
+                Column(
+                  children: [
+                    TextField(
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: width * 0.04,
+                      ),
+                      controller: controller,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: colorCPU), // Color when not focused
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: colorCPU), // Color when focused
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      height: width * 0.08,
+                      width: double.infinity,
+                      child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: WidgetStateProperty.all(colorCPU),
+                          ),
+                          onPressed: () async {
+                            String link = controller.text.toString();
+                            await writeData(link);
+                            toast(context,
+                                "Restart the application for changes to take place.");
+                          },
+                          child: Text(
+                            "Save",
+                            style: GoogleFonts.poppins(
+                                color: Colors.black,
+                                fontSize: width * 0.05,
+                                fontWeight: FontWeight.w600),
+                          )),
+                    ),
+                  ],
+                ),
 ```
 
   ```dart
