@@ -158,17 +158,6 @@ Row(
 ```
 
   ```dart
-Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
-    return directory.path;
-  }
-
-  Future<File> get _localFile async {
-    final directory = await getApplicationDocumentsDirectory();
-    final file = File('${directory.path}/assets/link.txt');
-    return file;
-  }
-
   Future<void> writeData(String data) async {
     final directory = await getApplicationDocumentsDirectory();
     final file = File('${directory.path}/assets/link.txt');
