@@ -163,13 +163,6 @@ Row(
     final file = File('${directory.path}/assets/link.txt');
     await file.writeAsString(data);
   }
-
-  _launchURL() async {
-    final Uri url = Uri.parse('https://aswin-asokan.github.io/System-Monitor/');
-    if (!await launchUrl(url)) {
-      throw Exception('Could not launch $url');
-    }
-  }
 ```
 * To get the Help documentation inside the app by connecting it to **Readme.md** file in your repository:
   
