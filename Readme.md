@@ -203,7 +203,7 @@ Future<String> get _localPath async {
           );
       }
       ```
-    * Paste your github page link in the **Your-ghPage-Link-Here' line.
+    * Paste your github page link in the **Your-ghPage-Link-Here'** line.
 
 * Run/Build your application.
 
