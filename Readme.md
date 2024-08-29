@@ -83,7 +83,7 @@ Example API Response:
 
 * This link will serve as the initial data to be fetched to the app (The app won't allow users to view or copy this link. Make sure to edit Settings.dart for making the link not editable if needed.)
 
-  To remove the editing option go to lib -> pages -> settings.dart. Find and remove the code snippets given below:
+  To remove the editing option go to **lib -> pages -> settings.dart**. Find and remove the code snippets given below:
   
 ```dart
 Row(
@@ -182,6 +182,28 @@ Future<String> get _localPath async {
     }
   }
 ```
+* To get the Help documentation inside the app by connecting it to **Readme.md** file in your repository:
+  
+    * Go to the spplication repository in you github account.
+    * In it's settings go to **Settings**.
+    * In the left menu choose **Pages** and choose main as your branch.
+
+      <img src="https://github.com/user-attachments/assets/67f9a038-e37b-4a75-8af8-a7017788ab11" alt="help">
+    * Now go to **lib -> pages -> help** and find the below code snippet:
+
+      ```dart
+        @override
+      void initState() {
+        super.initState();
+        controller = WebViewController()
+          ..loadRequest(
+            Uri.parse(
+                'Your-ghPage-Link-Here'), //Paste your github page containing documentation link here
+            //get the help page hosted as github page at initial state for webview loading
+          );
+      }
+      ```
+    * Paste your github page link in the **Your-ghPage-Link-Here' line.
 
 * Run/Build your application.
 
