@@ -194,14 +194,6 @@ class _SettingsState extends State<Settings> {
     final file = File('${directory.path}/assets/link.txt'); //set file path
     await file.writeAsString(data); //write to file
   }
-
-  //launch github page used for documentation inside app
-  _launchURL() async {
-    final Uri url = Uri.parse('https://aswin-asokan.github.io/System-Monitor/');
-    if (!await launchUrl(url)) {
-      throw Exception('Could not launch $url');
-    }
-  }
 }
 
 //toast generator
