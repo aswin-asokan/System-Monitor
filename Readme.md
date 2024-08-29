@@ -166,7 +166,7 @@ Row(
 ```
 * To get the Help documentation inside the app by connecting it to **Readme.md** file in your repository:
   
-    * Go to the spplication repository in you github account.
+    * Go to the application repository in you github account.
     * In it's settings go to **Settings**.
     * In the left menu choose **Pages** and choose main as your branch.
 
