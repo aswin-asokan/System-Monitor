@@ -17,7 +17,8 @@ class _HelpState extends State<Help> {
     controller = WebViewController()
       ..loadRequest(
         Uri.parse(
-            'https://aswin-asokan.github.io/System-Monitor/'), //get the help page hosted as github page at initial state for webview loading
+            'Your-ghPage-Link-Here'), //Paste your github page containing documentation link here
+        //get the help page hosted as github page at initial state for webview loading
       );
   }
 
